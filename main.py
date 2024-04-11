@@ -46,6 +46,40 @@ def show_info():
     print("5. Show all others info.")
     print("6. back.")
     user_choise= input("your choise: ")
+    match user_choise:
+        case"1": show_all_databases()
+        case "2":
+            f"""SHOW TABLES """
+        case "3":
+            """SHOW DATABASES"""
+        case "4":
+            """SHOW DATABASES"""
+        case "5":
+            """SHOW DATABASES"""
+        case "0":
+            return
+        case "_":
+            print("no, sorry, they have weakeand")
+
+
+def show_all_databases():
+    try:
+        cursor.execute("SHOW DATABASES")
+        for db in cursor:
+            print(db)
+    except:
+        print("no, sorry, they have weakeand")
+
+
+def show_all_tables():
+    try:
+        cursor.execute("SHOW TABLES")
+        for db in cursor:
+            print(db)
+    except:
+        print("no, sorry, they have weakeand")
+
+
 
 
 def change_database():
