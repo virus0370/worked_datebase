@@ -49,11 +49,11 @@ def show_info():
     match user_choise:
         case"1": show_all_databases()
         case "2":
-            f"""SHOW TABLES """
+            show_all_tables()
         case "3":
-            """SHOW DATABASES"""
+            show_all_columns()
         case "4":
-            """SHOW DATABASES"""
+            show_all_dataInTables()
         case "5":
             """SHOW DATABASES"""
         case "0":
@@ -78,6 +78,30 @@ def show_all_tables():
             print(db)
     except:
         print("no, sorry, they have weakeand")
+
+
+def show_all_columns():
+    try:
+        Table_name=input("your tables? : ")
+        query = f"""SHOW COLUMNS FROM {Table_name}"""
+        cursor.execute(query)
+        for db in cursor:
+            print(db)
+    except:
+        print("no, sorry, they have weakeand")
+
+
+def show_all_dataInTables():
+    try:
+        Table_name=input("your tables? : ")
+        query = f"""SELECT * FROM {Table_name}"""
+        cursor.execute(query)
+        for db in cursor:
+            print(db)
+    except:
+        print("no, sorry, they have weakeand")
+
+
 
 
 
