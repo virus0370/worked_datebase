@@ -34,7 +34,7 @@ def insert_info():
         cursor.execute(query)
         print("all colums: ")
         for column in cursor:
-            print(column)
+            print(*column)
         match table:
             case"teachers":
                 query = """INSERT INTO teachers (first_name, second_name,age) VALUES (%s, %s, %s)"""
@@ -46,9 +46,33 @@ def insert_info():
                 cursor.execute(query, values)
                 connection.commit()
             case"groups":
-                pass
+                query = """INSERT INTO groups (name, auditory) VALUES (%s, %s)"""
+                values = (
+                    input('Insert a first name: '),
+                    input('Insert a auditory: ')
+                )
+                cursor.execute(query, values)
+                connection.commit()
             case "teacher_and_groups":
-                pass
+                query = f"""SELECT * FROM TEACHERS"""
+                cursor.execute(query)
+                for teacher in cursor:
+                    print(f"id: {teacher[0]}; firstname {teacher[1]}; lastname{teacher[2]}")
+                theachers_id = input('Insert theacher id: ')
+
+                query = f"""SELECT * FROM GROUPS"""
+                cursor.execute(query)
+                for groups in cursor:
+                    print(f"id: {groups[0]}; name {groups[1]}; auditori{groups[2]}")
+                groups_id = input('Insert groups id: ')
+
+
+                query = """INSERT INTO teachers_and_groups (theacher_id, groups_id) VALUES (%s, %s)"""
+
+                values = (theachers_id, groups_id)
+
+                cursor.execute(query, values)
+                connection.commit()
     except:
         print("no, sorry, they have wekeand")
 
@@ -91,7 +115,7 @@ def show_all_databases():
         cursor.execute("SHOW DATABASES")
         print("all databases")
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("no, sorry, they have weakeand")
 
@@ -101,7 +125,7 @@ def show_all_tables():
         cursor.execute("SHOW TABLES")
         print("all tables this database")
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("no, sorry, they have weakeand")
 
@@ -112,18 +136,23 @@ def show_all_columns():
         query = f"""SHOW COLUMNS FROM {Table_name}"""
         cursor.execute(query)
         for db in cursor:
-            print(db)
+            print(*db)
     except:
         print("no, sorry, they have weakeand")
 
 
 def show_all_dataInTables():
     try:
+        tables= "SHOW TABLES"
+        cursor.execute(tables)
+        for db in cursor:
+            print(*db)
         Table_name=input("your tables? : ")
         query = f"""SELECT * FROM {Table_name}"""
         cursor.execute(query)
         for db in cursor:
-            print(db)
+            print(*db)
+
     except:
         print("no, sorry, they have weakeand")
 
@@ -194,6 +223,8 @@ try:
             # )
             cursor.execute("USE ACADEMY")
             while True:
+                print("\n\n")
+                print("=" * 80)
                 print("1. create database")
                 print("2. change database")
                 print("3. create table")
