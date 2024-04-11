@@ -27,7 +27,31 @@ def craete_table():
 
 
 def insert_info():
-    pass
+    show_all_tables()
+    table = input("name of table: ")
+    try:
+        query = f"""SHOW COLUMNS FROM {table}"""
+        cursor.execute(query)
+        print("all colums: ")
+        for column in cursor:
+            print(column)
+        match table:
+            case"teachers":
+                query = """INSERT INTO teachers (first_name, second_name,age) VALUES (%s, %s, %s)"""
+                values = (
+                    input('Insert a first name: '),
+                    input('Insert a second name: '),
+                    int(input('Insert a age: ')),
+                )
+                cursor.execute(query, values)
+                connection.commit()
+            case"groups":
+                pass
+            case "teacher_and_groups":
+                pass
+    except:
+        print("no, sorry, they have wekeand")
+
 
 
 def delete_info():
@@ -65,6 +89,7 @@ def show_info():
 def show_all_databases():
     try:
         cursor.execute("SHOW DATABASES")
+        print("all databases")
         for db in cursor:
             print(db)
     except:
@@ -74,6 +99,7 @@ def show_all_databases():
 def show_all_tables():
     try:
         cursor.execute("SHOW TABLES")
+        print("all tables this database")
         for db in cursor:
             print(db)
     except:
