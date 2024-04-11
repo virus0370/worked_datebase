@@ -79,12 +79,32 @@ def insert_info():
 
 
 def delete_info():
-    pass
+    try:
+        show_all_tables()
+        table= input("select table: ")
+        query = f"""SELECT * FROM {table}"""
+        cursor.execute(query)
+        print("all colums: ")
+        for column in cursor:
+            print(*column)
+
+        values = int(input("your field id: "))
+        query = f"""DELETE FROM {table} WHERE id = %s"""
+
+
+        cursor.execute(query, values)
+        connection.commit()
+    except:
+        print("no, sorry, they have wekeand")
+
 
 
 def update_info():
-    pass
-
+    teacher_id  = int(input("teacher_id: "))
+    query = f"""UPDATE theachers SET first_name = %s, second_name = %s, age = %s WHERE id = {teacher_id}"""
+    values = (input("firstname: "), ("second name: "), int(input("age: ")))
+    cursor.execute(query,values)
+    connection.commit()
 
 def show_info():
     print("1. Show all date bases.")
